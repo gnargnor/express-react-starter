@@ -6,14 +6,13 @@ import {
 } from './reducer';
 
 class Greeting extends Component {
-    
 
     render () {
         const {acknowledgement, personalQuestion} = this.props;
 
         return (
-            <div>
-                {acknowledgement}, {personalQuestion}?
+            <div className='greeting'>
+                <h1>{acknowledgement}, {personalQuestion}?</h1>
             </div>
         )
     }

@@ -65,4 +65,10 @@ module.exports = {
 
 if (ifProduction()) {
     module.exports.plugins.push(new UglifyJSPlugin({sourceMap: true}));
+} else {
+    Object.keys(module.exports.entry).forEach(key => {
+        module.exports.entry[key].unshift('react-hot-loader/patch');
+        module.exports.entry[key].unshift('webpack-hot-middleware/client?reload=true');
+    });
+    module.exports.plugins.push(new webpack.HotModuleReplacementPlugin());
 }

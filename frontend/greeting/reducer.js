@@ -28,9 +28,9 @@ const personalQuestions = [
 ];
 
 const INITIAL_STATE = {
-    acknowledgement: acknowledgements[0],
+    acknowledgement: acknowledgements[2],
     acknowledgements,
-    personalQuestion: personalQuestions[0],
+    personalQuestion: personalQuestions[1],
     personalQuestions
 };
 

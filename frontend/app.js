@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import reducers from './reducers';
-import {createStore} from 'redux';
-import Greeting from './greeting';
+import {AppContainer} from 'react-hot-loader';
+import App from './shared/App';
 
-const store = createStore(reducers);
+render(App);
 
-function render () {
-    ReactDOM.render((
-        <Provider store={store}>
-            <Greeting />
-        </Provider>
-    ), document.getElementById('app'));
+if (module.hot) {
+    module.hot.accept('./shared/App', () => {
+        render(require('./shared/App').default);
+    })
 }
 
-render();
+function render (Component) {
+    const tree = (
+        <AppContainer>
+            <Component />
+        </AppContainer>
+    )
+    ReactDOM.render(tree, document.getElementById('app'));
+}
