@@ -1,7 +1,6 @@
-import {combineReducers} from 'redux';
 // import reducers
 import Greeting from './greeting/reducer';
 
-export default combineReducers({
+export default {
     greeting: Greeting
-});
+};
