@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec \"./bin/www\" --ignore client --ignore frontend --ignore 'public/bundle*' --ignore 'public/css/bundle*'",
+    "dev": "DEBUG=generic* nodemon ./bin/www --ignore client --ignore frontend --ignore 'public/bundle*' --ignore 'public/css/bundle*'",
     "start": "node ./bin/www"
   },
   "author": "Logan Kelly",
@@ -17,10 +17,12 @@
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "hbs": "^4.0.1",
+    "morgan": "^1.9.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -29,6 +31,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.9",
+    "debug": "^3.1.0",
     "file-loader": "^1.1.6",
     "nodemon": "^1.14.12",
     "react-hot-loader": "^3.1.3",

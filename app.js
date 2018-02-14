@@ -10,6 +10,11 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const pkg = require('./package.json');
 
+// logging dependencies
+const debug = require('debug')('generic:app');
+const morgan = require('morgan');
+const logger = require('./logger');
+
 // routes
 const index = require('./routes/index');
 
@@ -35,6 +40,18 @@ if (process.env.NODE_ENV !== 'production'){
         require('webpack-dev-middleware')(compiler, {quiet: true}),
         require('webpack-hot-middleware')(compiler)
     );
+    // request logging - errors
+    app.use(morgan('dev', {
+        skip: function (req, res) {
+            return res.statusCode < 400;
+        }, stream: process.stderr
+    }));
+    
+    app.use(morgan('dev', {
+        skip: function (req, res) {
+            return res.statusCode >= 400;
+        }, stream: process.stdout
+    }));
 }
 
 if (process.env.EXPOSE_PUBLIC) {
@@ -43,9 +60,27 @@ if (process.env.EXPOSE_PUBLIC) {
 
 // add health-check / heartbeat routes
 
-app.use('*', index);
+app.use('/', index);
 
-// add error handler
+// 404 forwarding
+app.use(function (req, res, next) {
+    logger.error('404 - Not Found');
+    let err = new Error('Not Found');
+    err.status = 404;
+    debug(err);
+    next(err);
+})
+
+// error handler
+app.use(function (err, req, res, next) {
+    debug('fuck me daddy!');
+    // response local variables set, provide error for dev
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // render error hbs page
+    res.status(err.status || 500);
+    res.render('error');
+})
 
 module.exports = app;
 
