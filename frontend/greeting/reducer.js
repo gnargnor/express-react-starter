@@ -24,13 +24,14 @@ const personalQuestions = [
     'what it do',
     'how\'s it hangin\'',
     'can I have a dollar',
-    'what\'s that smell'
+    'what\'s that smell',
+    'want a bite of this'
 ];
 
 const INITIAL_STATE = {
-    acknowledgement: acknowledgements[2],
+    acknowledgement: acknowledgements[Math.floor(Math.random() * acknowledgements.length)],
     acknowledgements,
-    personalQuestion: personalQuestions[1],
+    personalQuestion: personalQuestions[Math.floor(Math.random() * personalQuestions.length)],
     personalQuestions
 };
 

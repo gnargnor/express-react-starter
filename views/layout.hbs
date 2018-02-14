@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- hbs default entry point - define your html template that views will be placed into @ {{{body}}} -->
+<html lang="en">
+<head>
+    <title>Generic Title</title>
+    <meta charset="UTF-8">
+    <!-- stylesheets -->
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    {{#if production}}
+        <link href="{{assetUrl}}/{{cssBundle}}" rel="stylesheet">
+    {{/if}}
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1">    
+</head>
+<body>
+    {{{body}}}
+</body>
+</html>

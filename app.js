@@ -16,6 +16,7 @@ const morgan = require('morgan');
 const logger = require('./logger');
 
 // routes
+const api = require('./routes/api');
 const index = require('./routes/index');
 
 // define app
@@ -60,11 +61,12 @@ if (process.env.EXPOSE_PUBLIC) {
 
 // add health-check / heartbeat routes
 
+app.use('/api', api);
 app.use('/', index);
 
 // 404 forwarding
 app.use(function (req, res, next) {
-    logger.error('404 - Not Found');
+    logger.error('404 -- Not Found');
     let err = new Error('Not Found');
     err.status = 404;
     debug(err);
@@ -73,7 +75,6 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    debug('fuck me daddy!');
     // response local variables set, provide error for dev
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
